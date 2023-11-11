@@ -33,7 +33,7 @@
 - 할인 결과인 Receipt를 받아 OutputView를 통해 고객에게 안내하는 기능
 - 이벤트 배지를 부여하고 OutputView를 통해 고객에게 안내하는 기능
 
-## ✔ Day
+## ✔ VisitDate
 
 12월의 날짜와 요일 정보를 담고있는 객체
 
