@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DecemberCalendar {
@@ -12,7 +13,7 @@ public class DecemberCalendar {
     private List<Integer> holidays;
 
     public DecemberCalendar() {
-        initCalendar();
+        holidays = initCalendar();
     }
 
     public List<Integer> getHolidays() {
@@ -23,12 +24,16 @@ public class DecemberCalendar {
         return START_DATE > date || END_DATE < date;
     }
 
-    private void initCalendar() {
+    private List<Integer> initCalendar() {
+        List<Integer> holidays = new ArrayList<>();
+
         for (int i = START_FRIDAY; i <= END_DATE; i += WEEK) {
             holidays.add(i);
         }
         for (int i = START_SATURDAY; i <= END_DATE; i += WEEK) {
             holidays.add(i);
         }
+        
+        return holidays;
     }
 }

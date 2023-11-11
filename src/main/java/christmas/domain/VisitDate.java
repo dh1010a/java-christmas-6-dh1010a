@@ -10,10 +10,10 @@ public class VisitDate {
     private List<Integer> holidays;
 
     public VisitDate(String dateInput) {
+        calendar = new DecemberCalendar();
         validator(dateInput);
 
         this.date = Integer.parseInt(dateInput);
-        calendar = new DecemberCalendar();
         holidays = getHolidays(date);
     }
 
