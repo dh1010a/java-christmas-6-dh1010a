@@ -1,9 +1,8 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.exception.EmptyInputException;
-import christmas.exception.EmptySpaceIncludeException;
-import christmas.exception.NotIntegerInputException;
+import christmas.exception.ExceptionMessage;
+import christmas.exception.InvalidDateRangeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,14 +40,16 @@ public class InputView {
     }
 
     private void dateInputValidator(String input) throws IllegalArgumentException {
+        String error = ExceptionMessage.INVALID_DATE_RANGE_ERROR.getMessage();
         checkIsNotIntegerAndThrowException(input);
-        checkIsNotEmptyAndThrowException(input);
-        checkIsNotIncludeSpaceAndThrowException(input);
+        checkIsNotEmptyAndThrowException(input, error);
+        checkIsNotIncludeSpaceAndThrowException(input, error);
     }
 
     private void orderContentsInputValidator(String input) {
-        checkIsNotEmptyAndThrowException(input);
-        checkIsNotIncludeSpaceAndThrowException(input);
+        String error = ExceptionMessage.INVALID_MENU_ERROR.getMessage();
+        checkIsNotEmptyAndThrowException(input, error);
+        checkIsNotIncludeSpaceAndThrowException(input, error);
     }
 
     private List<String> parseOrderContentsInputToStringList(String input) {
@@ -59,22 +60,22 @@ public class InputView {
         try {
             Integer.parseInt(input);
         } catch (NumberFormatException error) {
-            throw new NotIntegerInputException();
+            throw new InvalidDateRangeException();
         }
     }
 
-    private void checkIsNotIncludeSpaceAndThrowException(String input) throws IllegalArgumentException {
+    private void checkIsNotIncludeSpaceAndThrowException(String input, String error) throws IllegalArgumentException {
         if (input.contains(EMPTY_SPACE)) {
-            throw new EmptySpaceIncludeException();
+            throw new IllegalArgumentException(error);
         }
     }
 
-    private void checkIsNotEmptyAndThrowException(String input) throws IllegalArgumentException {
+    private void checkIsNotEmptyAndThrowException(String input, String error) throws IllegalArgumentException {
         if (input.isEmpty()) {
-            throw new EmptyInputException();
+            throw new IllegalArgumentException(error);
         }
         if (parseOrderContentsInputToStringList(input).isEmpty()) {
-            throw new EmptySpaceIncludeException();
+            throw new IllegalArgumentException(error);
         }
     }
 
