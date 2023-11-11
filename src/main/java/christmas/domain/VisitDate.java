@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.exception.ExceptionMessage;
 import christmas.exception.InvalidDateRangeException;
 import java.util.List;
 
@@ -8,9 +9,10 @@ public class VisitDate {
     private final DecemberCalendar calendar;
     private List<Integer> holidays;
 
-    public VisitDate(int date) {
-        this.date = date;
-        validator(date);
+    public VisitDate(String dateInput) {
+        validator(dateInput);
+
+        this.date = Integer.parseInt(dateInput);
         calendar = new DecemberCalendar();
         holidays = getHolidays(date);
     }
@@ -27,9 +29,32 @@ public class VisitDate {
         return calendar.getHolidays();
     }
 
-    private void validator(int date) throws IllegalArgumentException {
-        if (calendar.isInvalidDate(date)) {
+    private void validator(String dateInput) throws IllegalArgumentException {
+        String error = ExceptionMessage.INVALID_DATE_RANGE_ERROR.getMessage();
+        checkIsNotIntegerAndThrowException(dateInput);
+        checkIsNotEmptyAndThrowException(dateInput, error);
+
+        int intDate = Integer.parseInt(dateInput);
+        checkInvalidDateRangeAndThrowException(intDate, error);
+    }
+
+    private void checkInvalidDateRangeAndThrowException(int intDate, String error) throws IllegalArgumentException {
+        if (calendar.isInvalidDate(intDate)) {
+            throw new IllegalArgumentException(error);
+        }
+    }
+
+    private void checkIsNotIntegerAndThrowException(String dateInput) throws IllegalArgumentException {
+        try {
+            Integer.parseInt(dateInput);
+        } catch (NumberFormatException error) {
             throw new InvalidDateRangeException();
+        }
+    }
+
+    private void checkIsNotEmptyAndThrowException(String dateInput, String error) throws IllegalArgumentException {
+        if (dateInput.isEmpty()) {
+            throw new IllegalArgumentException(error);
         }
     }
 
