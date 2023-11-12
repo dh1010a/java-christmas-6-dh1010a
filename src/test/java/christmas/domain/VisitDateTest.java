@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.exception.ExceptionMessage;
@@ -30,5 +31,25 @@ public class VisitDateTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(exceptionMessage)
         );
+    }
+
+    @DisplayName("주말이면_True_반환")
+    @ValueSource(strings = {"1", "16", "22", "29"})
+    @ParameterizedTest
+    void isHolidayTest(String input) {
+        //given
+        VisitDate visitDate = new VisitDate(input);
+
+        assertThat(visitDate.isHoliday()).isEqualTo(true);
+    }
+
+    @DisplayName("주말이_아니면_False_반환")
+    @ValueSource(strings = {"3", "17", "19", "31"})
+    @ParameterizedTest
+    void isNotHolidayTest(String input) {
+        //given
+        VisitDate visitDate = new VisitDate(input);
+
+        assertThat(visitDate.isHoliday()).isEqualTo(false);
     }
 }
