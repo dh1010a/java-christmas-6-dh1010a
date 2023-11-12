@@ -1,31 +1,48 @@
 package christmas.domain.orders;
 
 import christmas.exception.InvalidMenuException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Orders {
 
     private static final String HYPHEN = "-";
     private static final String EMPTY = "없음";
+    private static final int MINIMUM_EVENT_PRICE = 10000;
     private final List<String> ordersContents;
-
+    private Map<Menu, Integer> orders;
 
     public Orders(List<String> ordersContents) {
         this.ordersContents = ordersContents;
         validate();
+        orders = makeOrders();
     }
 
     public int getTotalPriceBeforeDiscount() {
         int totalPrice = 0;
 
-        for (String contents : ordersContents) {
-            String name = contents.split(HYPHEN)[0];
-            int orderCount = Integer.parseInt(contents.split(HYPHEN)[1]);
-
-            totalPrice += getMenuPrice(name) * orderCount;
+        for (Menu menu : orders.keySet()) {
+            totalPrice += menu.getPrice() * orders.get(menu);
         }
 
         return totalPrice;
+    }
+
+    public boolean isEventTarget() {
+        return getTotalPriceBeforeDiscount() >= MINIMUM_EVENT_PRICE;
+    }
+
+    private Map<Menu, Integer> makeOrders() {
+        Map<Menu, Integer> orders = new HashMap<>();
+        for (String contents : ordersContents) {
+            String name = contents.split(HYPHEN)[0];
+            int orderCount = Integer.parseInt(contents.split(HYPHEN)[1]);
+            Menu menu = Menu.getMenu(name);
+
+            orders.put(menu, orderCount);
+        }
+        return orders;
     }
 
     private int getMenuPrice(String name) {
