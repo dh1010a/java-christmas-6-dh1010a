@@ -73,7 +73,7 @@ public class Orders {
     }
 
     private void checkValidateNumberAndThrowException(String contents) throws IllegalArgumentException {
-        String numberString = contents.split(HYPHEN)[0];
+        String numberString = contents.split(HYPHEN)[1];
         int number;
 
         try {
