@@ -8,15 +8,27 @@ public class Orders {
     private static final String HYPHEN = "-";
     private static final String EMPTY = "없음";
     private final List<String> ordersContents;
-    private List<MenuGroup> menus;
 
 
     public Orders(List<String> ordersContents) {
         this.ordersContents = ordersContents;
-        validate(ordersContents);
+        validate();
     }
 
-    private void validate(List<String> ordersContents) throws IllegalArgumentException {
+    public int getTotalPriceBeforeDiscount() {
+        int totalPrice = 0;
+
+        for (String contents : ordersContents) {
+            String name = contents.split(HYPHEN)[0];
+            Menu menu = Menu.getMenu(name);
+            int orderCount = Integer.parseInt(contents.split(HYPHEN)[1]);
+            totalPrice += menu.getPrice() * orderCount;
+        }
+
+        return totalPrice;
+    }
+
+    private void validate() throws IllegalArgumentException {
         for (String contents : ordersContents) {
             checkHyphenAndThrowException(contents);
             checkIsMenuIncludedAndThrowException(contents);
@@ -24,7 +36,7 @@ public class Orders {
         }
     }
 
-    private void checkValidateNumberAndThrowException(String contents) {
+    private void checkValidateNumberAndThrowException(String contents) throws IllegalArgumentException {
         String numberString = contents.split(HYPHEN)[0];
         int number;
 
@@ -39,7 +51,7 @@ public class Orders {
         }
     }
 
-    private void checkIsMenuIncludedAndThrowException(String contents) {
+    private void checkIsMenuIncludedAndThrowException(String contents) throws IllegalArgumentException {
         String name = contents.split(HYPHEN)[0];
         Menu menu = Menu.getMenu(name);
         if (menu.getTitle().equals(EMPTY)) {
@@ -49,6 +61,9 @@ public class Orders {
 
     private void checkHyphenAndThrowException(String contents) throws IllegalArgumentException {
         if (!contents.contains(HYPHEN)) {
+            throw new InvalidMenuException();
+        }
+        if (contents.split(HYPHEN).length != 2) {
             throw new InvalidMenuException();
         }
     }
