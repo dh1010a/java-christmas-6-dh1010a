@@ -20,12 +20,16 @@ public class Orders {
 
         for (String contents : ordersContents) {
             String name = contents.split(HYPHEN)[0];
-            Menu menu = Menu.getMenu(name);
             int orderCount = Integer.parseInt(contents.split(HYPHEN)[1]);
-            totalPrice += menu.getPrice() * orderCount;
+
+            totalPrice += getMenuPrice(name) * orderCount;
         }
 
         return totalPrice;
+    }
+
+    private int getMenuPrice(String name) {
+        return Menu.getMenu(name).getPrice();
     }
 
     private void validate() throws IllegalArgumentException {
