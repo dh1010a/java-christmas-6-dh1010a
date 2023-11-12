@@ -40,7 +40,7 @@ public class VisitDateTest {
         //given
         VisitDate visitDate = new VisitDate(input);
 
-        assertThat(visitDate.isHoliday()).isEqualTo(true);
+        assertThat(visitDate.isWeekend()).isEqualTo(true);
     }
 
     @DisplayName("주말이_아니면_False_반환")
@@ -50,6 +50,6 @@ public class VisitDateTest {
         //given
         VisitDate visitDate = new VisitDate(input);
 
-        assertThat(visitDate.isHoliday()).isEqualTo(false);
+        assertThat(visitDate.isWeekend()).isEqualTo(false);
     }
 }

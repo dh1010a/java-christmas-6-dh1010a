@@ -2,31 +2,24 @@ package christmas.domain;
 
 import christmas.exception.ExceptionMessage;
 import christmas.exception.InvalidDateRangeException;
-import java.util.List;
 
 public class VisitDate {
     private final int date;
     private final DecemberCalendar calendar;
-    private List<Integer> holidays;
 
     public VisitDate(String dateInput) {
         calendar = new DecemberCalendar();
         validator(dateInput);
 
         this.date = Integer.parseInt(dateInput);
-        holidays = getHolidays(date);
     }
 
-    public boolean isHoliday() {
-        return holidays.contains(date);
+    public boolean isWeekend() {
+        return calendar.isWeekend(date);
     }
 
     public int getDate() {
         return date;
-    }
-
-    private List<Integer> getHolidays(int date) {
-        return calendar.getHolidays();
     }
 
     private void validator(String dateInput) throws IllegalArgumentException {
