@@ -9,6 +9,8 @@ public class Orders {
 
     private static final String HYPHEN = "-";
     private static final String EMPTY = "없음";
+    private static final String NEWLINE = "\n";
+    private static final String UNIT = "개";
     private static final int MINIMUM_EVENT_PRICE = 10000;
 
     private final List<String> ordersContents;
@@ -42,6 +44,14 @@ public class Orders {
         return MenuGroup.isDesertMenu(menu);
     }
 
+    public String toString() {
+        String result = "";
+        for (Menu menu : orders.keySet()) {
+            result += menu.getTitle() + " " + orders.get(menu) + UNIT + NEWLINE;
+        }
+        return result;
+    }
+
     private Map<Menu, Integer> makeOrders() {
         Map<Menu, Integer> orders = new HashMap<>();
         for (String contents : ordersContents) {
@@ -52,10 +62,6 @@ public class Orders {
             orders.put(menu, orderCount);
         }
         return orders;
-    }
-
-    private int getMenuPrice(String name) {
-        return Menu.getMenu(name).getPrice();
     }
 
     private void validate() throws IllegalArgumentException {
