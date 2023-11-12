@@ -34,6 +34,16 @@ public enum MenuGroup {
                 .anyMatch(title -> title == menu);
     }
 
+    public static boolean isMainMenu(Menu menu) {
+        MenuGroup menuGroup = findByMenu(menu);
+        return menuGroup.title.equals(MAIN.getTitle());
+    }
+
+    public static boolean isDesertMenu(Menu menu) {
+        MenuGroup menuGroup = findByMenu(menu);
+        return menuGroup.title.equals(DESERT.getTitle());
+    }
+
     public String getTitle() {
         return title;
     }

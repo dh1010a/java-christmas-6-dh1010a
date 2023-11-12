@@ -10,6 +10,7 @@ public class Orders {
     private static final String HYPHEN = "-";
     private static final String EMPTY = "없음";
     private static final int MINIMUM_EVENT_PRICE = 10000;
+
     private final List<String> ordersContents;
     private Map<Menu, Integer> orders;
 
@@ -31,6 +32,14 @@ public class Orders {
 
     public boolean isEventTarget() {
         return getTotalPriceBeforeDiscount() >= MINIMUM_EVENT_PRICE;
+    }
+
+    public boolean isMainMenu(Menu menu) {
+        return MenuGroup.isMainMenu(menu);
+    }
+
+    public boolean isDessertMenu(Menu menu) {
+        return MenuGroup.isDesertMenu(menu);
     }
 
     private Map<Menu, Integer> makeOrders() {
