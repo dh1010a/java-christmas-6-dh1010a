@@ -20,6 +20,22 @@ public class Orders {
         for (String contents : ordersContents) {
             checkHyphenAndThrowException(contents);
             checkIsMenuIncludedAndThrowException(contents);
+            checkValidateNumberAndThrowException(contents);
+        }
+    }
+
+    private void checkValidateNumberAndThrowException(String contents) {
+        String numberString = contents.split(HYPHEN)[0];
+        int number;
+
+        try {
+            number = Integer.parseInt(numberString);
+        } catch (NumberFormatException error) {
+            throw new InvalidMenuException();
+        }
+
+        if (number < 1) {
+            throw new InvalidMenuException();
         }
     }
 
