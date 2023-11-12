@@ -52,4 +52,24 @@ public class VisitDateTest {
 
         assertThat(visitDate.isWeekend()).isEqualTo(false);
     }
+
+    @DisplayName("별표친_날짜면_True_반환")
+    @ValueSource(strings = {"3", "10", "17", "25", "24"})
+    @ParameterizedTest
+    void isStarDayTest(String input) {
+        //given
+        VisitDate visitDate = new VisitDate(input);
+
+        assertThat(visitDate.isStarDay()).isEqualTo(true);
+    }
+
+    @DisplayName("별표친_날짜가_아니면_False_반환")
+    @ValueSource(strings = {"4", "11", "27", "30"})
+    @ParameterizedTest
+    void isNotStarDayTest(String input) {
+        //given
+        VisitDate visitDate = new VisitDate(input);
+
+        assertThat(visitDate.isStarDay()).isEqualTo(false);
+    }
 }

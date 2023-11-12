@@ -18,6 +18,10 @@ public class VisitDate {
         return calendar.isWeekend(date);
     }
 
+    public boolean isStarDay() {
+        return calendar.isStarDay(date);
+    }
+
     public int getDate() {
         return date;
     }
