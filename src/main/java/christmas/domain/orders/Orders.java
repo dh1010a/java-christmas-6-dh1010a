@@ -62,6 +62,15 @@ public class Orders {
         return count;
     }
 
+    public int giveChampagneAndReturnPrice() {
+        Menu champagne = Menu.CHAMPAGNE;
+        if (orders.containsKey(champagne)) {
+            orders.replace(champagne, orders.get(champagne) + 1);
+        }
+        orders.put(champagne, 1);
+        return champagne.getPrice();
+    }
+
     public String toString() {
         String result = "";
         for (Menu menu : orders.keySet()) {

@@ -9,6 +9,7 @@ public class DiscountCalculator {
     private static final int CHRISTMAS_DISCOUNT_INCREASE = 100;
     private static final int DAY_OF_THE_WEEK_DISCOUNT = 2023;
     private static final int STAR_DAY_DISCOUNT = 1000;
+    private static final int GIFT_EVENT_MINIMUM_PRICE = 120000;
 
     private final Orders orders;
     private final VisitDate visitDate;
@@ -21,7 +22,7 @@ public class DiscountCalculator {
     }
 
     private void getTotalDiscount() {
-        
+
     }
 
     private int calculateChristmasDiscount() {
@@ -46,6 +47,16 @@ public class DiscountCalculator {
             return STAR_DAY_DISCOUNT;
         }
         return 0;
+    }
+
+    private int applyGiftEvent() {
+        int price = 0;
+
+        if (totalOrderPrice >= GIFT_EVENT_MINIMUM_PRICE) {
+            price = orders.giveChampagneAndReturnPrice();
+        }
+
+        return price;
     }
 
     private boolean isBeforeChristmas(int date) {
