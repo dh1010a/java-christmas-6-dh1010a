@@ -37,11 +37,11 @@ public class DiscountCalculator {
 
     private int getTotalDiscountPrice() {
         int totalDiscountPrice = 0;
-
-        totalDiscountPrice += christmasDiscount();
-        totalDiscountPrice += dayOfTheWeekDiscount();
-        totalDiscountPrice += starDayDiscount();
-
+        if (orders.isEventTarget()) {
+            totalDiscountPrice += christmasDiscount();
+            totalDiscountPrice += dayOfTheWeekDiscount();
+            totalDiscountPrice += starDayDiscount();
+        }
         return totalDiscountPrice;
     }
 

@@ -50,5 +50,16 @@ public class DiscountCalculatorTest {
         assertThat(receipt.getBenefitDetails()).contains("크리스마스 디데이 할인: -1,200원", "평일 할인: -4,046원", "특별 할인: -1,000원",
                 "증정 이벤트: -25,000원");
     }
+
+    @Test
+    public void 혜택_적용_안된_경우() {
+        orderContents = List.of("타파스-1", "제로콜라-1");
+        orders = new Orders(orderContents);
+        visitDate = new VisitDate("3");
+        discountCalculator = new DiscountCalculator(orders, visitDate);
+        receipt = discountCalculator.calculateAndPrintReceipt();
+
+        System.out.println(receipt.getTotalBenefitPrice());
+    }
 }
 
