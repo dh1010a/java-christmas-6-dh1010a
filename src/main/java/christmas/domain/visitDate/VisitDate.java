@@ -4,6 +4,8 @@ import christmas.exception.ExceptionMessage;
 import christmas.exception.InvalidDateRangeException;
 
 public class VisitDate {
+    private static final String DECEMBER = "12월 ";
+    private static final String DATE_FORMAT = "일";
     private final int date;
     private final DecemberCalendar calendar;
 
@@ -23,6 +25,10 @@ public class VisitDate {
 
     public int getDate() {
         return date;
+    }
+
+    public String getFullDate() {
+        return DECEMBER + date + DATE_FORMAT;
     }
 
     private void validator(String dateInput) throws IllegalArgumentException {
