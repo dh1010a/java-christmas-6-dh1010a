@@ -55,7 +55,7 @@ public class Orders {
 
         for (Menu menu : orders.keySet()) {
             if (MenuGroup.isDesertMenu(menu)) {
-                count++;
+                count += orders.get(menu);
             }
         }
 

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReceiptPrinter {
-    private static final String CHRISTMAS_DISCOUNT_MESSAGE = "크리스마스 디데이 할인 : -";
-    private static final String WEEKEND_DISCOUNT_MESSAGE = "주말 할인 : -";
-    private static final String WEEKDAY_DISCOUNT_MESSAGE = "평일 할인 : -";
-    private static final String STAR_DAY_DISCOUNT_MESSAGE = "특별 할인 : -";
-    private static final String GIFT_EVENT_DISCOUNT_MESSAGE = "증정 이벤트 : -";
+    private static final String CHRISTMAS_DISCOUNT_MESSAGE = "크리스마스 디데이 할인: -";
+    private static final String WEEKEND_DISCOUNT_MESSAGE = "주말 할인: -";
+    private static final String WEEKDAY_DISCOUNT_MESSAGE = "평일 할인: -";
+    private static final String STAR_DAY_DISCOUNT_MESSAGE = "특별 할인: -";
+    private static final String GIFT_EVENT_DISCOUNT_MESSAGE = "증정 이벤트: -";
     private static final String CHAMPAGNE_GIFT = "샴페인 1개";
     private static final String SUFFIX = "원";
 

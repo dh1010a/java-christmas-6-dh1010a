@@ -62,7 +62,8 @@ public class Receipt {
     }
 
     private void setFinalPaymentPrice(AmountOfMoney amountOfMoney) {
-        finalPaymentPrice = numberFormatter(amountOfMoney.totalOrderPrice() - amountOfMoney.totalDiscountPrice());
+        finalPaymentPrice =
+                numberFormatter(amountOfMoney.totalOrderPrice() - amountOfMoney.totalDiscountPrice()) + UNIT;
     }
 
     private String numberFormatter(int number) {
