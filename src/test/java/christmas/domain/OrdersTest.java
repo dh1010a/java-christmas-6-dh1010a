@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import christmas.domain.orders.Menu;
 import christmas.domain.orders.Orders;
 import java.util.List;
 import java.util.stream.Stream;
@@ -34,19 +33,6 @@ public class OrdersTest {
         Orders orders = new Orders(orderContents);
         //then
         assertThat(orders.getTotalPriceBeforeDiscount()).isEqualTo(13500);
-    }
-
-    @Test
-    public void 메인메뉴_확인() throws Exception {
-        //given
-        List<String> orderContents = List.of("티본스테이크-1", "제로콜라-1", "아이스크림-1");
-        //when
-        Orders orders = new Orders(orderContents);
-        Menu menu = Menu.getMenu("티본스테이크");
-        Menu menu1 = Menu.getMenu("제로콜라");
-        //then
-        assertThat(orders.isMainMenu(menu)).isEqualTo(true);
-        assertThat(orders.isMainMenu(menu1)).isEqualTo(false);
     }
 
     @Test
