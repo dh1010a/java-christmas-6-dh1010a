@@ -33,13 +33,9 @@ public class DiscountCalculator {
 
     private int calculateDayOfTheWeekDiscount() {
         if (visitDate.isWeekend()) {
-            return calculateWeekendDiscount();
+            return orders.getMainMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
         }
-    }
-
-    private int calculateWeekendDiscount() {
-        int discountAmount = 0;
-
+        return orders.getDesertMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
     }
 
     private boolean isBeforeChristmas(int date) {
