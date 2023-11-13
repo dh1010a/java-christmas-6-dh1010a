@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.Receipt;
+import java.text.DecimalFormat;
 
 public class ReceiptPrinter {
     private static final String CHRISTMAS_DISCOUNT_MESSAGE = "크리스마스 디데이 할인 : -";
@@ -13,14 +13,15 @@ public class ReceiptPrinter {
 
     private String benefitDetails;
     private int totalOrderPrice;
+    private DecimalFormat formatter = new DecimalFormat("###,###");
 
     public ReceiptPrinter(int totalOrderPrice) {
         this.totalOrderPrice = totalOrderPrice;
         benefitDetails = "";
     }
 
-    public Receipt printReceipt(int totalDiscountPrice) {
-        Receipt receipt = new Receipt(totalOrderPrice, totalDiscountPrice);
+    public Receipt printReceipt(int totalDiscountPrice, int totalBenefitPrice) {
+        Receipt receipt = new Receipt(totalOrderPrice, totalDiscountPrice, totalBenefitPrice);
         if (totalDiscountPrice > 0) {
             receipt.setBenefitDetails(benefitDetails);
         }
@@ -32,23 +33,27 @@ public class ReceiptPrinter {
 
     public void addChristmasDiscountMessage(int price) {
         if (price > 0) {
-            benefitDetails += CHRISTMAS_DISCOUNT_MESSAGE + price + SUFFIX;
+            benefitDetails += CHRISTMAS_DISCOUNT_MESSAGE + numberFormatter(price) + SUFFIX;
         }
     }
 
     public void addWeekDayDiscountMessage(int price) {
-        benefitDetails += WEEKDAY_DISCOUNT_MESSAGE + price + SUFFIX;
+        benefitDetails += WEEKDAY_DISCOUNT_MESSAGE + numberFormatter(price) + SUFFIX;
     }
 
     public void addWeekendDiscountMessage(int price) {
-        benefitDetails += WEEKEND_DISCOUNT_MESSAGE + price + SUFFIX;
+        benefitDetails += WEEKEND_DISCOUNT_MESSAGE + numberFormatter(price) + SUFFIX;
     }
 
     public void addStarDayDiscountMessage(int price) {
-        benefitDetails += STAR_DAY_DISCOUNT_MESSAGE + price + SUFFIX;
+        benefitDetails += STAR_DAY_DISCOUNT_MESSAGE + numberFormatter(price) + SUFFIX;
     }
 
     public void addGiftEventDiscountMessage(int price) {
-        benefitDetails += GIFT_EVENT_DISCOUNT_MESSAGE + price + SUFFIX;
+        benefitDetails += GIFT_EVENT_DISCOUNT_MESSAGE + numberFormatter(price) + SUFFIX;
+    }
+
+    private String numberFormatter(int number) {
+        return formatter.format(number);
     }
 }

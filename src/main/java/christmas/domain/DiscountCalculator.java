@@ -24,14 +24,22 @@ public class DiscountCalculator {
 
     }
 
+    public Receipt calculateAndPrintReceipt() {
+        int totalDiscountPrice = getTotalDiscountPrice();
+        return receiptPrinter.printReceipt(totalDiscountPrice, getTotalBenefitPrice(totalDiscountPrice));
+    }
 
-    private int setTotalDiscountPrice() {
+    private int getTotalBenefitPrice(int totalDiscountPrice) {
+        return totalDiscountPrice + applyGiftEvent();
+    }
+
+
+    private int getTotalDiscountPrice() {
         int totalDiscountPrice = 0;
 
         totalDiscountPrice += calculateChristmasDiscount();
         totalDiscountPrice += calculateDayOfTheWeekDiscount();
         totalDiscountPrice += calculateStarDayDiscount();
-        totalDiscountPrice += applyGiftEvent();
 
         return totalDiscountPrice;
     }
