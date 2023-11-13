@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.visitDate;
 
 public class DecemberCalendar {
     private static final int START_DATE = 1;

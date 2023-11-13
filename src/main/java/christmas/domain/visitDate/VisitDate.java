@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.visitDate;
 
 import christmas.exception.ExceptionMessage;
 import christmas.exception.InvalidDateRangeException;

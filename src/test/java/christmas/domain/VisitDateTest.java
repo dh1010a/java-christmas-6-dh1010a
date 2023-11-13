@@ -4,6 +4,7 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.domain.visitDate.VisitDate;
 import christmas.exception.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -72,5 +73,5 @@ public class VisitDateTest {
 
         assertThat(visitDate.isStarDay()).isEqualTo(false);
     }
-    
+
 }
