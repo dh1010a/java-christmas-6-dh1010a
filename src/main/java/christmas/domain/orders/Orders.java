@@ -38,12 +38,28 @@ public class Orders {
         return getTotalPriceBeforeDiscount() >= MINIMUM_EVENT_PRICE;
     }
 
-    public boolean isMainMenu(Menu menu) {
-        return MenuGroup.isMainMenu(menu);
+    public int getMainMenuCount() {
+        int count = 0;
+
+        for (Menu menu : orders.keySet()) {
+            if (MenuGroup.isMainMenu(menu)) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
-    public boolean isDessertMenu(Menu menu) {
-        return MenuGroup.isDesertMenu(menu);
+    public int getDesertMenuCount() {
+        int count = 0;
+
+        for (Menu menu : orders.keySet()) {
+            if (MenuGroup.isDesertMenu(menu)) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     public String toString() {
