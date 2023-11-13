@@ -72,4 +72,5 @@ public class VisitDateTest {
 
         assertThat(visitDate.isStarDay()).isEqualTo(false);
     }
+    
 }
