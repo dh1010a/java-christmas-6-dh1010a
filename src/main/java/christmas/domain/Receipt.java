@@ -14,16 +14,16 @@ public class Receipt {
     private String giftMenu;
     private DecimalFormat formatter = new DecimalFormat("###,###");
 
-    public Receipt(int totalOrderPrice, int totalDiscountPrice, int totalBenefitPrice) {
-        parsePriceToString(totalOrderPrice, totalBenefitPrice);
-        setFinalPaymentPrice(totalOrderPrice, totalDiscountPrice);
+    public Receipt(AmountOfMoney amountOfMoney) {
+        parsePriceToString(amountOfMoney);
+        setFinalPaymentPrice(amountOfMoney);
         benefitDetails = DEFAULT_MESSAGE;
         giftMenu = DEFAULT_MESSAGE;
     }
 
-    private void parsePriceToString(int totalOrderPrice, int totalBenefitPrice) {
-        this.totalBenefitPrice = PREFIX + numberFormatter(totalOrderPrice) + UNIT;
-        this.totalOrderPrice = numberFormatter(totalBenefitPrice) + UNIT;
+    private void parsePriceToString(AmountOfMoney amountOfMoney) {
+        this.totalBenefitPrice = PREFIX + numberFormatter(amountOfMoney.totalBenefitPrice()) + UNIT;
+        this.totalOrderPrice = numberFormatter(amountOfMoney.totalOrderPrice()) + UNIT;
     }
 
     public String getTotalOrderPrice() {
@@ -34,8 +34,8 @@ public class Receipt {
         return totalBenefitPrice;
     }
 
-    public void setFinalPaymentPrice(int totalOrderPrice, int totalDiscountPrice) {
-        finalPaymentPrice = numberFormatter(totalOrderPrice - totalDiscountPrice);
+    public void setFinalPaymentPrice(AmountOfMoney amountOfMoney) {
+        finalPaymentPrice = numberFormatter(amountOfMoney.totalOrderPrice() - amountOfMoney.totalDiscountPrice());
     }
 
     public String getBenefitDetails() {

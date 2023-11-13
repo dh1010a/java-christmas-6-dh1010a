@@ -10,7 +10,6 @@ public class VisitDate {
     public VisitDate(String dateInput) {
         calendar = new DecemberCalendar();
         validator(dateInput);
-
         this.date = Integer.parseInt(dateInput);
     }
 

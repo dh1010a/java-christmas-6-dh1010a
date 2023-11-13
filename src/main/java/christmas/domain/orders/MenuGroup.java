@@ -28,12 +28,6 @@ public enum MenuGroup {
                 .orElse(EMPTY);
     }
 
-
-    public boolean hasMenu(Menu menu) {
-        return menus.stream()
-                .anyMatch(title -> title == menu);
-    }
-
     public static boolean isMainMenu(Menu menu) {
         MenuGroup menuGroup = findByMenu(menu);
         return menuGroup.title.equals(MAIN.getTitle());
@@ -46,6 +40,11 @@ public enum MenuGroup {
 
     public String getTitle() {
         return title;
+    }
+
+    private boolean hasMenu(Menu menu) {
+        return menus.stream()
+                .anyMatch(title -> title == menu);
     }
 
 }

@@ -20,13 +20,14 @@ public class DiscountCalculator {
         this.orders = orders;
         this.visitDate = visitDate;
         totalOrderPrice = orders.getTotalPriceBeforeDiscount();
-        receiptPrinter = new ReceiptPrinter(totalOrderPrice);
-
+        receiptPrinter = new ReceiptPrinter();
     }
 
     public Receipt calculateAndPrintReceipt() {
         int totalDiscountPrice = getTotalDiscountPrice();
-        return receiptPrinter.printReceipt(totalDiscountPrice, getTotalBenefitPrice(totalDiscountPrice));
+        AmountOfMoney amountOfMoney = new AmountOfMoney(totalOrderPrice, totalDiscountPrice,
+                getTotalBenefitPrice(totalDiscountPrice));
+        return receiptPrinter.printReceipt(amountOfMoney);
     }
 
     private int getTotalBenefitPrice(int totalDiscountPrice) {
@@ -37,14 +38,14 @@ public class DiscountCalculator {
     private int getTotalDiscountPrice() {
         int totalDiscountPrice = 0;
 
-        totalDiscountPrice += calculateChristmasDiscount();
-        totalDiscountPrice += calculateDayOfTheWeekDiscount();
-        totalDiscountPrice += calculateStarDayDiscount();
+        totalDiscountPrice += christmasDiscount();
+        totalDiscountPrice += dayOfTheWeekDiscount();
+        totalDiscountPrice += starDayDiscount();
 
         return totalDiscountPrice;
     }
 
-    private int calculateChristmasDiscount() {
+    private int christmasDiscount() {
         int date = visitDate.getDate();
 
         if (isBeforeChristmas(date)) {
@@ -56,7 +57,7 @@ public class DiscountCalculator {
         return 0;
     }
 
-    private int calculateDayOfTheWeekDiscount() {
+    private int dayOfTheWeekDiscount() {
         if (visitDate.isWeekend()) {
             return calculateWeekendDiscount();
         }
@@ -75,7 +76,7 @@ public class DiscountCalculator {
         return price;
     }
 
-    private int calculateStarDayDiscount() {
+    private int starDayDiscount() {
         if (visitDate.isStarDay()) {
             receiptPrinter.addStarDayDiscountMessage(STAR_DAY_DISCOUNT);
             return STAR_DAY_DISCOUNT;

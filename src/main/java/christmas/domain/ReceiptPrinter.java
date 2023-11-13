@@ -12,17 +12,17 @@ public class ReceiptPrinter {
     private static final String SUFFIX = "원\n";
 
     private String benefitDetails;
-    private int totalOrderPrice;
-    private DecimalFormat formatter = new DecimalFormat("###,###");
+    private AmountOfMoney amountOfMoney;
+    private DecimalFormat formatter;
 
-    public ReceiptPrinter(int totalOrderPrice) {
-        this.totalOrderPrice = totalOrderPrice;
+    public ReceiptPrinter() {
+        formatter = new DecimalFormat("###,###");
         benefitDetails = "";
     }
 
-    public Receipt printReceipt(int totalDiscountPrice, int totalBenefitPrice) {
-        Receipt receipt = new Receipt(totalOrderPrice, totalDiscountPrice, totalBenefitPrice);
-        if (totalDiscountPrice > 0) {
+    public Receipt printReceipt(AmountOfMoney amountOfMoney) {
+        Receipt receipt = new Receipt(amountOfMoney);
+        if (amountOfMoney.totalOrderPrice() > 0) {
             receipt.setBenefitDetails(benefitDetails);
         }
         if (benefitDetails.contains(GIFT_EVENT_DISCOUNT_MESSAGE)) {
