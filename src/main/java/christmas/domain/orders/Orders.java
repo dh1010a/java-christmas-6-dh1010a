@@ -2,8 +2,10 @@ package christmas.domain.orders;
 
 import christmas.exception.InvalidMenuException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Orders {
 
@@ -69,6 +71,18 @@ public class Orders {
             checkHyphenAndThrowException(contents);
             checkIsMenuIncludedAndThrowException(contents);
             checkValidateNumberAndThrowException(contents);
+        }
+        checkDuplicateMenuAndThrowException();
+    }
+
+    private void checkDuplicateMenuAndThrowException() throws IllegalArgumentException {
+        Set<String> menuNames = new HashSet<>();
+        for (String contents : ordersContents) {
+            String name = contents.split(HYPHEN)[0];
+            menuNames.add(name);
+        }
+        if (menuNames.size() != ordersContents.size()) {
+            throw new InvalidMenuException();
         }
     }
 
