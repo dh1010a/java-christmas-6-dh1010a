@@ -14,22 +14,35 @@ public class DiscountCalculator {
     private final Orders orders;
     private final VisitDate visitDate;
     private int totalOrderPrice;
+    private ReceiptPrinter receiptPrinter;
 
     public DiscountCalculator(Orders orders, VisitDate visitDate) {
         this.orders = orders;
         this.visitDate = visitDate;
         totalOrderPrice = orders.getTotalPriceBeforeDiscount();
+        receiptPrinter = new ReceiptPrinter(totalOrderPrice);
+
     }
 
-    private void getTotalDiscount() {
 
+    private int setTotalDiscountPrice() {
+        int totalDiscountPrice = 0;
+
+        totalDiscountPrice += calculateChristmasDiscount();
+        totalDiscountPrice += calculateDayOfTheWeekDiscount();
+        totalDiscountPrice += calculateStarDayDiscount();
+        totalDiscountPrice += applyGiftEvent();
+
+        return totalDiscountPrice;
     }
 
     private int calculateChristmasDiscount() {
         int date = visitDate.getDate();
 
         if (isBeforeChristmas(date)) {
-            return CHRISTMAS_DISCOUNT_OFFSET + ((date - 1) * CHRISTMAS_DISCOUNT_INCREASE);
+            int price = CHRISTMAS_DISCOUNT_OFFSET + ((date - 1) * CHRISTMAS_DISCOUNT_INCREASE);
+            receiptPrinter.addChristmasDiscountMessage(price);
+            return price;
         }
 
         return 0;
@@ -37,13 +50,26 @@ public class DiscountCalculator {
 
     private int calculateDayOfTheWeekDiscount() {
         if (visitDate.isWeekend()) {
-            return orders.getMainMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
+            return calculateWeekendDiscount();
         }
-        return orders.getDesertMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
+        return calculateWeekDayDiscount();
+    }
+
+    private int calculateWeekDayDiscount() {
+        int price = orders.getDesertMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
+        receiptPrinter.addWeekDayDiscountMessage(price);
+        return price;
+    }
+
+    private int calculateWeekendDiscount() {
+        int price = orders.getMainMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
+        receiptPrinter.addWeekendDiscountMessage(price);
+        return price;
     }
 
     private int calculateStarDayDiscount() {
         if (visitDate.isStarDay()) {
+            receiptPrinter.addStarDayDiscountMessage(STAR_DAY_DISCOUNT);
             return STAR_DAY_DISCOUNT;
         }
         return 0;
@@ -54,6 +80,7 @@ public class DiscountCalculator {
 
         if (totalOrderPrice >= GIFT_EVENT_MINIMUM_PRICE) {
             price = orders.giveChampagneAndReturnPrice();
+            receiptPrinter.addGiftEventDiscountMessage(price);
         }
 
         return price;
