@@ -15,13 +15,19 @@ public class Receipt {
     private String finalPaymentPrice;
     private String giftMenu;
     private DecimalFormat formatter;
+    private int intTotalBenefitPrice;
 
     public Receipt(AmountOfMoney amountOfMoney) {
         formatter = new DecimalFormat("###,###");
         parsePriceToString(amountOfMoney);
         setFinalPaymentPrice(amountOfMoney);
+        intTotalBenefitPrice = amountOfMoney.totalBenefitPrice();
         benefitDetails = DEFAULT_LIST;
         giftMenu = DEFAULT_MESSAGE;
+    }
+
+    public int getIntTotalBenefitPrice() {
+        return intTotalBenefitPrice;
     }
 
     public String getTotalOrderPrice() {

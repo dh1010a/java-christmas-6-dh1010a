@@ -24,8 +24,9 @@ public class EventPlanner {
 
         Receipt receipt = getReceiptFromCalculator();
         printReceipt(receipt);
-        
-        Badge badge = Badge.getBadge(Integer.parseInt(receipt.getTotalBenefitPrice()));
+
+        Badge badge = Badge.getBadge(receipt.getIntTotalBenefitPrice());
+        outputView.printEventBadge(badge.getTitle());
     }
 
     private void printReceipt(Receipt receipt) {

@@ -17,6 +17,10 @@ public enum Badge {
         this.requiredPrice = requiredPrice;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public static Badge getBadge(int orderPrice) {
         return Arrays.stream(values())
                 .filter(value -> orderPrice >= value.requiredPrice)

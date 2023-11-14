@@ -14,6 +14,7 @@ public class InputView {
     private static final String EMPTY_SPACE = " ";
 
     public int getVisitDate() {
+        System.out.println(WELCOME_MESSAGE);
         System.out.println(ASK_VISIT_DATE_MESSAGE);
 
         String input = Console.readLine();

@@ -54,6 +54,11 @@ public class OutputView {
         newLine();
     }
 
+    public void printEventBadge(String badge) {
+        System.out.println(EVENT_BADGE_MESSAGE);
+        System.out.println(badge);
+    }
+
     private void newLine() {
         System.out.println();
     }
