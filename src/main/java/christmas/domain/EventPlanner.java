@@ -9,6 +9,8 @@ import java.util.List;
 public class EventPlanner {
     private InputView inputView;
     private OutputView outputView;
+    private Orders orders;
+    private VisitDate visitDate;
 
     public EventPlanner(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
@@ -16,8 +18,30 @@ public class EventPlanner {
     }
 
     public void startEventPlan() {
-        VisitDate visitDate = getVisitDateFromCustomer();
-        Orders orders = getOrderFromCustomer();
+        visitDate = getVisitDateFromCustomer();
+        orders = getOrderFromCustomer();
+        showMenuToCustomer();
+        Receipt receipt = getReceiptFromCalculator();
+        printReceipt(receipt);
+    }
+
+    private void printReceipt(Receipt receipt) {
+        outputView.printTotalOrderPriceBeforeDiscount(receipt.getTotalOrderPrice());
+        outputView.printGiftMenu(receipt.getGiftMenu());
+        outputView.printBenefitDetails(receipt.getBenefitDetails());
+        outputView.printTotalBenefitPrice(receipt.getTotalBenefitPrice());
+        outputView.printFinalPaymentPrice(receipt.getFinalPaymentPrice());
+    }
+
+    private Receipt getReceiptFromCalculator() {
+        DiscountCalculator discountCalculator = new DiscountCalculator(orders, visitDate);
+        return discountCalculator.calculateAndPrintReceipt();
+
+    }
+
+    private void showMenuToCustomer() {
+        outputView.printAnnounceMessage(visitDate.getFullDate());
+        outputView.printOrderMenu(orders.toString());
     }
 
     private VisitDate getVisitDateFromCustomer() {
@@ -33,7 +57,7 @@ public class EventPlanner {
 
     private Orders getOrderFromCustomer() {
         List<String> orderContents = inputView.getUserOrderContents();
-        
+
         try {
             return new Orders(orderContents);
         } catch (IllegalArgumentException error) {
