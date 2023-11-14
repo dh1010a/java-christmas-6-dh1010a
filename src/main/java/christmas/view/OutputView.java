@@ -3,7 +3,7 @@ package christmas.view;
 import java.util.List;
 
 public class OutputView {
-    private static final String ANNOUNCE_MESSAGE = "에 우테코 식당에서 받을 이벤트 혜택 미리 보기";
+    private static final String ANNOUNCE_MESSAGE = "에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
     private static final String MENU_MESSAGE = "<주문 메뉴>";
     private static final String TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE = "<할인 전 총 주문 금액>";
     private static final String GIFT_MENU_MESSAGE = "<증정 메뉴>";
@@ -20,7 +20,6 @@ public class OutputView {
     public void printOrderMenu(String orders) {
         System.out.println(MENU_MESSAGE);
         System.out.println(orders);
-        newLine();
     }
 
     public void printTotalOrderPriceBeforeDiscount(String totalPrice) {

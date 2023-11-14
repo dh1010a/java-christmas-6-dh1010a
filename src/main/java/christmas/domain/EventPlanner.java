@@ -21,8 +21,11 @@ public class EventPlanner {
         visitDate = getVisitDateFromCustomer();
         orders = getOrderFromCustomer();
         showMenuToCustomer();
+
         Receipt receipt = getReceiptFromCalculator();
         printReceipt(receipt);
+        
+        Badge badge = Badge.getBadge(Integer.parseInt(receipt.getTotalBenefitPrice()));
     }
 
     private void printReceipt(Receipt receipt) {
