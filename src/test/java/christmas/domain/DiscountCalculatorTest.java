@@ -59,6 +59,9 @@ public class DiscountCalculatorTest {
         discountCalculator = new DiscountCalculator(orders, visitDate);
         receipt = discountCalculator.calculateAndPrintReceipt();
 
+        System.out.println(receipt.getGiftMenu());
+        System.out.println(receipt.getBenefitDetails());
+        System.out.println(receipt.getFinalPaymentPrice());
         System.out.println(receipt.getTotalBenefitPrice());
     }
 }

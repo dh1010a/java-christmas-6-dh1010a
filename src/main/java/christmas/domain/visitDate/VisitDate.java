@@ -1,7 +1,6 @@
 package christmas.domain.visitDate;
 
 import christmas.exception.ExceptionMessage;
-import christmas.exception.InvalidDateRangeException;
 
 public class VisitDate {
     private static final String DECEMBER = "12월 ";
@@ -9,10 +8,10 @@ public class VisitDate {
     private final int date;
     private final DecemberCalendar calendar;
 
-    public VisitDate(String dateInput) {
+    public VisitDate(int dateInput) {
         calendar = new DecemberCalendar();
         validator(dateInput);
-        this.date = Integer.parseInt(dateInput);
+        this.date = dateInput;
     }
 
     public boolean isWeekend() {
@@ -31,31 +30,14 @@ public class VisitDate {
         return DECEMBER + date + DATE_FORMAT;
     }
 
-    private void validator(String dateInput) throws IllegalArgumentException {
+    private void validator(int dateInput) throws IllegalArgumentException {
         String error = ExceptionMessage.INVALID_DATE_RANGE_ERROR.getMessage();
-        checkIsNotIntegerAndThrowException(dateInput);
-        checkIsNotEmptyAndThrowException(dateInput, error);
 
-        int intDate = Integer.parseInt(dateInput);
-        checkInvalidDateRangeAndThrowException(intDate, error);
+        checkInvalidDateRangeAndThrowException(dateInput, error);
     }
 
-    private void checkInvalidDateRangeAndThrowException(int intDate, String error) throws IllegalArgumentException {
-        if (calendar.isInvalidDate(intDate)) {
-            throw new IllegalArgumentException(error);
-        }
-    }
-
-    private void checkIsNotIntegerAndThrowException(String dateInput) throws IllegalArgumentException {
-        try {
-            Integer.parseInt(dateInput);
-        } catch (NumberFormatException error) {
-            throw new InvalidDateRangeException();
-        }
-    }
-
-    private void checkIsNotEmptyAndThrowException(String dateInput, String error) throws IllegalArgumentException {
-        if (dateInput.isEmpty()) {
+    private void checkInvalidDateRangeAndThrowException(int dateInput, String error) throws IllegalArgumentException {
+        if (calendar.isInvalidDate(dateInput)) {
             throw new IllegalArgumentException(error);
         }
     }
