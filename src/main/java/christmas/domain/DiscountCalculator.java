@@ -69,13 +69,17 @@ public class DiscountCalculator {
 
     private int calculateWeekDayDiscount() {
         int price = orders.getDesertMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
-        receiptPrinter.addWeekDayDiscountMessage(price);
+        if (price > 0) {
+            receiptPrinter.addWeekDayDiscountMessage(price);
+        }
         return price;
     }
 
     private int calculateWeekendDiscount() {
         int price = orders.getMainMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
-        receiptPrinter.addWeekendDiscountMessage(price);
+        if (price > 0) {
+            receiptPrinter.addWeekendDiscountMessage(price);
+        }
         return price;
     }
 
