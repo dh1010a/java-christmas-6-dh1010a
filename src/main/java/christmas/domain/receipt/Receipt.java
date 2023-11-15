@@ -9,13 +9,13 @@ public class Receipt {
     private static final String UNIT = "원";
     private static final String PREFIX = "-";
 
+    private final DecimalFormat formatter;
+    private final int intTotalBenefitPrice;
     List<String> benefitDetails;
     private String totalOrderPrice;
     private String totalBenefitPrice;
     private String finalPaymentPrice;
     private String giftMenu;
-    private DecimalFormat formatter;
-    private int intTotalBenefitPrice;
 
     public Receipt(AmountOfMoney amountOfMoney) {
         formatter = new DecimalFormat("###,###");

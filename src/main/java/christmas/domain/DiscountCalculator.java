@@ -7,12 +7,7 @@ import christmas.domain.receipt.ReceiptPrinter;
 import christmas.domain.visitDate.VisitDate;
 
 public class DiscountCalculator {
-    private static final int CHRISTMAS = 25; //추후 리팩토링을 통해 Enum으로 분리
-    private static final int CHRISTMAS_DISCOUNT_OFFSET = 1000;
-    private static final int CHRISTMAS_DISCOUNT_INCREASE = 100;
-    private static final int DAY_OF_THE_WEEK_DISCOUNT = 2023;
-    private static final int STAR_DAY_DISCOUNT = 1000;
-    private static final int GIFT_EVENT_MINIMUM_PRICE = 120000;
+    private static final int CHRISTMAS = 25;
 
     private final Orders orders;
     private final VisitDate visitDate;
@@ -50,9 +45,11 @@ public class DiscountCalculator {
 
     private int christmasDiscount() {
         int date = visitDate.getDate();
+        DiscountPolicy christmasDiscountOffset = DiscountPolicy.CHRISTMAS_DISCOUNT_OFFSET;
+        DiscountPolicy discountIncrease = DiscountPolicy.CHRISTMAS_DISCOUNT_INCREASE;
 
         if (isBeforeChristmas(date)) {
-            int price = CHRISTMAS_DISCOUNT_OFFSET + ((date - 1) * CHRISTMAS_DISCOUNT_INCREASE);
+            int price = christmasDiscountOffset.getPrice() + ((date - 1) * discountIncrease.getPrice());
             receiptPrinter.addChristmasDiscountMessage(price);
             return price;
         }
@@ -68,7 +65,8 @@ public class DiscountCalculator {
     }
 
     private int calculateWeekDayDiscount() {
-        int price = orders.getDesertMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
+        DiscountPolicy dayOfTheWeekDiscount = DiscountPolicy.DAY_OF_THE_WEEK_DISCOUNT;
+        int price = orders.getDesertMenuCount() * dayOfTheWeekDiscount.getPrice();
         if (price > 0) {
             receiptPrinter.addWeekDayDiscountMessage(price);
         }
@@ -76,7 +74,8 @@ public class DiscountCalculator {
     }
 
     private int calculateWeekendDiscount() {
-        int price = orders.getMainMenuCount() * DAY_OF_THE_WEEK_DISCOUNT;
+        DiscountPolicy dayOfTheWeekDiscount = DiscountPolicy.DAY_OF_THE_WEEK_DISCOUNT;
+        int price = orders.getMainMenuCount() * dayOfTheWeekDiscount.getPrice();
         if (price > 0) {
             receiptPrinter.addWeekendDiscountMessage(price);
         }
@@ -84,17 +83,19 @@ public class DiscountCalculator {
     }
 
     private int starDayDiscount() {
+        DiscountPolicy starDayDiscount = DiscountPolicy.STAR_DAY_DISCOUNT;
         if (visitDate.isStarDay()) {
-            receiptPrinter.addStarDayDiscountMessage(STAR_DAY_DISCOUNT);
-            return STAR_DAY_DISCOUNT;
+            receiptPrinter.addStarDayDiscountMessage(starDayDiscount.getPrice());
+            return starDayDiscount.getPrice();
         }
         return 0;
     }
 
     private int applyGiftEvent() {
         int price = 0;
+        DiscountPolicy giftEventMinimumPrice = DiscountPolicy.GIFT_EVENT_MINIMUM_PRICE;
 
-        if (totalOrderPrice >= GIFT_EVENT_MINIMUM_PRICE) {
+        if (totalOrderPrice >= giftEventMinimumPrice.getPrice()) {
             price = orders.giveChampagneAndReturnPrice();
             receiptPrinter.addGiftEventDiscountMessage(price);
         }
