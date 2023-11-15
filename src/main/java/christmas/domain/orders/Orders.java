@@ -43,7 +43,7 @@ public class Orders {
 
         for (Menu menu : orders.keySet()) {
             if (MenuGroup.isMainMenu(menu)) {
-                count++;
+                count += orders.get(menu);
             }
         }
 
