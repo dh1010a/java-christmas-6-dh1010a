@@ -2,6 +2,7 @@ package christmas.domain.orders;
 
 import christmas.exception.InvalidMenuException;
 import christmas.exception.OnlyContainDrinkException;
+import christmas.exception.TotalOrderCountOverflowException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Orders {
     private static final String NEWLINE = "\n";
     private static final String UNIT = "개";
     private static final int MINIMUM_EVENT_PRICE = 10000;
+    private static final int ORDER_COUNT_LIMIT = 20;
 
     private final List<String> ordersContents;
     private Map<Menu, Integer> orders;
@@ -23,6 +25,7 @@ public class Orders {
         this.ordersContents = ordersContents;
         validate();
         orders = makeOrders();
+
     }
 
     public int getTotalPriceBeforeDiscount() {
@@ -100,6 +103,17 @@ public class Orders {
         }
         checkDuplicateMenuAndThrowException();
         checkOnlyDrinkAndThrowException();
+        checkTotalOrderCountOverflowAndThrowException();
+    }
+
+    private void checkTotalOrderCountOverflowAndThrowException() throws IllegalArgumentException {
+        int count = 0;
+        for (String contents : ordersContents) {
+            count += Integer.parseInt(contents.split(HYPHEN)[1]);
+        }
+        if (count > ORDER_COUNT_LIMIT) {
+            throw new TotalOrderCountOverflowException();
+        }
     }
 
     private void checkOnlyDrinkAndThrowException() throws IllegalArgumentException {
