@@ -20,7 +20,7 @@ public class DiscountCalculatorTest {
     public void beforeEach() {
         orderContents = List.of("티본스테이크-1", "바비큐립-1", "초코케이크-2", "제로콜라-1");
         orders = new Orders(orderContents);
-        visitDate = new VisitDate("3");
+        visitDate = new VisitDate(3);
         discountCalculator = new DiscountCalculator(orders, visitDate);
         receipt = discountCalculator.calculateAndPrintReceipt();
     }
@@ -55,7 +55,7 @@ public class DiscountCalculatorTest {
     public void 혜택_적용_안된_경우() {
         orderContents = List.of("타파스-1", "제로콜라-1");
         orders = new Orders(orderContents);
-        visitDate = new VisitDate("3");
+        visitDate = new VisitDate(3);
         discountCalculator = new DiscountCalculator(orders, visitDate);
         receipt = discountCalculator.calculateAndPrintReceipt();
 

@@ -63,11 +63,11 @@ public class Receipt {
     }
 
     private void parsePriceToString(AmountOfMoney amountOfMoney) {
-        if (amountOfMoney.totalBenefitPrice() > 0) {
-            this.totalBenefitPrice = PREFIX + totalBenefitPrice;
-        }
-        this.totalBenefitPrice = numberFormatter(amountOfMoney.totalBenefitPrice()) + UNIT;
+        this.totalBenefitPrice = PREFIX + numberFormatter(amountOfMoney.totalBenefitPrice()) + UNIT;
         this.totalOrderPrice = numberFormatter(amountOfMoney.totalOrderPrice()) + UNIT;
+        if (amountOfMoney.totalBenefitPrice() <= 0) {
+            this.totalBenefitPrice = numberFormatter(amountOfMoney.totalBenefitPrice()) + UNIT;
+        }
     }
 
     private void setFinalPaymentPrice(AmountOfMoney amountOfMoney) {

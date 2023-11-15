@@ -15,19 +15,9 @@ public class VisitDateTest {
     String exceptionMessage = ExceptionMessage.INVALID_DATE_RANGE_ERROR.getMessage();
 
     @DisplayName("날짜범위가_1일과_31일사이가_아니면_에러발생")
-    @ValueSource(strings = {"0", "33", "40", "1000"})
+    @ValueSource(ints = {0, 33, 44, 3000})
     @ParameterizedTest
-    void invalidDateRangeExceptionTest(String input) {
-        assertSimpleTest(() -> assertThatThrownBy(() -> new VisitDate(input))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(exceptionMessage)
-        );
-    }
-
-    @DisplayName("정수형식의_날짜가_아니면_에러발생")
-    @ValueSource(strings = {"0 1", " ", "a", "first", "1-1"})
-    @ParameterizedTest
-    void invalidDateInputExceptionTest(String input) {
+    void invalidDateRangeExceptionTest(int input) {
         assertSimpleTest(() -> assertThatThrownBy(() -> new VisitDate(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(exceptionMessage)
@@ -35,9 +25,9 @@ public class VisitDateTest {
     }
 
     @DisplayName("주말이면_True_반환")
-    @ValueSource(strings = {"1", "16", "22", "29"})
+    @ValueSource(ints = {1, 16, 22, 29})
     @ParameterizedTest
-    void isHolidayTest(String input) {
+    void isHolidayTest(int input) {
         //given
         VisitDate visitDate = new VisitDate(input);
 
@@ -45,9 +35,9 @@ public class VisitDateTest {
     }
 
     @DisplayName("주말이_아니면_False_반환")
-    @ValueSource(strings = {"3", "17", "19", "31"})
+    @ValueSource(ints = {3, 17, 19})
     @ParameterizedTest
-    void isNotHolidayTest(String input) {
+    void isNotHolidayTest(int input) {
         //given
         VisitDate visitDate = new VisitDate(input);
 
@@ -55,9 +45,9 @@ public class VisitDateTest {
     }
 
     @DisplayName("별표친_날짜면_True_반환")
-    @ValueSource(strings = {"3", "10", "17", "25", "24"})
+    @ValueSource(ints = {3, 10, 17, 24, 25})
     @ParameterizedTest
-    void isStarDayTest(String input) {
+    void isStarDayTest(int input) {
         //given
         VisitDate visitDate = new VisitDate(input);
 
@@ -65,9 +55,9 @@ public class VisitDateTest {
     }
 
     @DisplayName("별표친_날짜가_아니면_False_반환")
-    @ValueSource(strings = {"4", "11", "27", "30"})
+    @ValueSource(ints = {4, 11, 27})
     @ParameterizedTest
-    void isNotStarDayTest(String input) {
+    void isNotStarDayTest(int input) {
         //given
         VisitDate visitDate = new VisitDate(input);
 
