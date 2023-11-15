@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import christmas.domain.orders.Orders;
+import christmas.exception.ExceptionMessage;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -38,7 +39,7 @@ public class OrdersTest {
     @Test
     public void 주문금액에_따라_이벤트_대상인지_확인() throws Exception {
         //given
-        List<String> orderContents = List.of("제로콜라-1");
+        List<String> orderContents = List.of("아이스크림-1");
         List<String> orderContents1 = List.of("제로콜라-1", "티본스테이크-1");
         //when
         Orders orders = new Orders(orderContents);
@@ -59,8 +60,8 @@ public class OrdersTest {
     static Stream<Arguments> duplicatedMenuProvider() {
         return Stream.of(
                 arguments(List.of("티본스테이크-1", "티본스테이크-1")),
-                arguments(List.of("제로콜라-1,티본스테이크-1,제로콜라-1")),
-                arguments(List.of("아이스크림-1,제로콜라-1,아이스크림-1"))
+                arguments(List.of("제로콜라-1", "티본스테이크-1", "제로콜라-1")),
+                arguments(List.of("아이스크림-1", "제로콜라-1", "아이스크림-1"))
         );
     }
 
@@ -75,8 +76,8 @@ public class OrdersTest {
     static Stream<Arguments> nonexistentMenuProvider() {
         return Stream.of(
                 arguments(List.of("티본스테이크-1", "티본-1")),
-                arguments(List.of("제로콜라-1,티본스테이크-1,코카콜라-1")),
-                arguments(List.of("아이스크림-1,제로콜라-1,초코아이스크림-1"))
+                arguments(List.of("제로콜라-1", "티본스테이크-1", "코카콜라-1")),
+                arguments(List.of("아이스크림-1", "제로콜라-1", "초코아이스크림-1"))
         );
     }
 
@@ -91,8 +92,8 @@ public class OrdersTest {
     static Stream<Arguments> invalidNumberMenuProvider() {
         return Stream.of(
                 arguments(List.of("티본스테이크-r", "타파스-1")),
-                arguments(List.of("제로콜라-1,티본스테이크-0,아이스크림-1")),
-                arguments(List.of("바비큐립-one,제로콜라-1,티본스테이크-1"))
+                arguments(List.of("제로콜라-1", "티본스테이크-0", "아이스크림-1")),
+                arguments(List.of("바비큐립-one", "제로콜라-1", "티본스테이크-1"))
         );
     }
 
@@ -108,8 +109,24 @@ public class OrdersTest {
         return Stream.of(
                 arguments(List.of("티본스테이크1", "바비큐립-1")),
                 arguments(List.of("제로콜라-1,티본스테이크1개,바비큐립-1")),
-                arguments(List.of("아이스크림.1,제로콜라.1,바비큐립-1")),
-                arguments(List.of("아이스크림=1,제로콜라-1,바비큐립-1"))
+                arguments(List.of("아이스크림.1", "제로콜라.1", "바비큐립-1")),
+                arguments(List.of("아이스크림=1", "제로콜라-1", "바비큐립-1"))
+        );
+    }
+
+    @DisplayName("음료수만_주문시_예외_반환")
+    @MethodSource("onlyContainDrinkMenuProvider")
+    @ParameterizedTest
+    void onlyContainDrinkMenuExceptionTest(List<String> input) {
+        assertThatThrownBy(() -> new Orders(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(ExceptionMessage.ONLY_CONTAIN_DRINK_ERROR.getMessage());
+    }
+
+    static Stream<Arguments> onlyContainDrinkMenuProvider() {
+        return Stream.of(
+                arguments(List.of("샴페인-1", "제로콜라-1")),
+                arguments(List.of("제로콜라-1", "샴페인-1", "레드와인-1"))
         );
     }
 
