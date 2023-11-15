@@ -60,10 +60,10 @@ public class DiscountCalculatorTest {
         discountCalculator = new DiscountCalculator(orders, visitDate);
         receipt = discountCalculator.calculateAndPrintReceipt();
 
-        System.out.println(receipt.getGiftMenu());
-        System.out.println(receipt.getBenefitDetails());
-        System.out.println(receipt.getFinalPaymentPrice());
-        System.out.println(receipt.getTotalBenefitPrice());
+        assertThat(receipt.getGiftMenu()).isEqualTo("없음");
+        assertThat(receipt.getBenefitDetails()).isEqualTo(List.of("없음"));
+        assertThat(receipt.getFinalPaymentPrice()).isEqualTo(receipt.getTotalOrderPrice());
+        assertThat(receipt.getTotalBenefitPrice()).isEqualTo("0원");
     }
 }
 

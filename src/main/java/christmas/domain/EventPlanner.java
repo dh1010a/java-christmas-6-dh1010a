@@ -8,8 +8,8 @@ import christmas.view.OutputView;
 import java.util.List;
 
 public class EventPlanner {
-    private InputView inputView;
-    private OutputView outputView;
+    private final InputView inputView;
+    private final OutputView outputView;
     private Orders orders;
     private VisitDate visitDate;
 

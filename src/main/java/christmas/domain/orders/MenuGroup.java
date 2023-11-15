@@ -38,6 +38,11 @@ public enum MenuGroup {
         return menuGroup.title.equals(DESERT.getTitle());
     }
 
+    public static boolean isDrinkMenu(Menu menu) {
+        MenuGroup menuGroup = findByMenu(menu);
+        return menuGroup.title.equals(DRINK.getTitle());
+    }
+
     public String getTitle() {
         return title;
     }

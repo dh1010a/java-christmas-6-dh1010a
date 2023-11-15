@@ -1,6 +1,7 @@
 package christmas.domain.orders;
 
 import christmas.exception.InvalidMenuException;
+import christmas.exception.OnlyContainDrinkException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -98,6 +99,21 @@ public class Orders {
             checkValidateNumberAndThrowException(contents);
         }
         checkDuplicateMenuAndThrowException();
+        checkOnlyDrinkAndThrowException();
+    }
+
+    private void checkOnlyDrinkAndThrowException() throws IllegalArgumentException {
+        int count = 0;
+        for (String contents : ordersContents) {
+            String name = contents.split(HYPHEN)[0];
+            Menu menu = Menu.getMenu(name);
+            if (MenuGroup.isDrinkMenu(menu)) {
+                count++;
+            }
+        }
+        if (ordersContents.size() == count) {
+            throw new OnlyContainDrinkException();
+        }
     }
 
     private void checkDuplicateMenuAndThrowException() throws IllegalArgumentException {
