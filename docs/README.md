@@ -38,6 +38,8 @@
 12월의 날짜와 요일 정보를 담고있는 객체
 
 - 날짜를 받으면 주말인지 평일인지 판단해주는 기능
+- 날짜를 문자열 형식으로 변환하여 반환해주는 기능
+- 날짜를 받으면 starDay인지 아닌지 판단해주는 기능
 
 #### 유효성 검증
 
@@ -48,7 +50,7 @@
 
 - 주문 날짜
 
-## ✔ Order
+## ✔ Orders
 
 주문한 메뉴의 내용을 저장하는 객체
 
@@ -73,6 +75,8 @@
 - 주문할 메뉴의 개수가 한개 이상이 아닌경우 에러 발생 - `IllegalArgumentException`
 - 중복된 메뉴가 있는 경우 에러 발생- `IllegalArgumentException`
 - 주문 형식에 맞지 않게 주문하면 에러 발생 - `IllegalArgumentException`
+- 총 주문한 음식 수가 20개 이상일시 에러 발생 - `IllegalArgumentException`
+- 음료만 주문했을 시 에러 발생 - `IllegalArgumentException`
 
 ## ✔ DiscountCalculator
 
@@ -84,24 +88,34 @@
     - 주말이라면 메인 메뉴 개수에 따라 계산
 - 특별 할인 금액을 계산해주는 기능
 - 총 금액이 120,000원 이상이면 샴페인을 증정해주는 기능
-- 구해진 할인 정보를 DiscountResult 객체에 담아 리턴해주는 기능
+- 구해진 할인 정보를 ReceiptPrinter을 통해 Receipt 객체에 담아 리턴해주는 기능
 
 #### 받아올 정보
 
-- Order 객체
-- Day 객체
+- Orders 객체
+- visitDate 객체
 
 #### 유효성 검증
 
 - 메뉴가 없는 경우 에러 발생 : `IllegalStateException`
 
+## ✔ ReceiptPrinter
+
+할인 적용 결과를 Receipt에 저장/적용해주는 객체
+
+- 혜택 내역을 Receipt에 작성
+- 총 할인 금액을 Receipt에 작성
+- 할인 후 최종 결제 금액을 Receipt에 작성
+- 증졍할 메뉴 목록을 Receipt에 작성
+
 ## ✔ Receipt
 
 할인이 적용된 주문의 결과를 담고있는 객체
 
-- 혜택 내역을 toString()메서드를 통해 문자열로 반환해주는 기능
+- 혜택 내역을 문자열 리스트로 반환해주는 기능
 - 총 할인 금액을 반환해주는 기능
 - 할인 적용 후의 금액을 반환해주는 기능
+
 
 
 
