@@ -19,6 +19,7 @@ public class EventPlanner {
     }
 
     public void startEventPlan() {
+        inputView.printWelcomeMessage();
         visitDate = getVisitDateFromCustomer();
         orders = getOrderFromCustomer();
         showMenuToCustomer();
