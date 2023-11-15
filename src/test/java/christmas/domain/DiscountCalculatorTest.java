@@ -3,6 +3,7 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.orders.Orders;
+import christmas.domain.receipt.Receipt;
 import christmas.domain.visitDate.VisitDate;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

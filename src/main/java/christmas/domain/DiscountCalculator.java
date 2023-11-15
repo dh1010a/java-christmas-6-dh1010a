@@ -1,6 +1,9 @@
 package christmas.domain;
 
 import christmas.domain.orders.Orders;
+import christmas.domain.receipt.AmountOfMoney;
+import christmas.domain.receipt.Receipt;
+import christmas.domain.receipt.ReceiptPrinter;
 import christmas.domain.visitDate.VisitDate;
 
 public class DiscountCalculator {

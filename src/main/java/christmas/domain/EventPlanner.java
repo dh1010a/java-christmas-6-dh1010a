@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.orders.Orders;
+import christmas.domain.receipt.Receipt;
 import christmas.domain.visitDate.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;

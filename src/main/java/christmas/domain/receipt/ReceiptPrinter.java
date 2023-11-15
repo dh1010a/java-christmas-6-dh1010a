@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.receipt;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
