@@ -130,4 +130,20 @@ public class OrdersTest {
         );
     }
 
+    @DisplayName("메뉴_총20개_이상_주문시_예외_반환")
+    @MethodSource("TotalOrderCountOverflowMenuProvider")
+    @ParameterizedTest
+    void TotalOrderCountOverflowExceptionTest(List<String> input) {
+        assertThatThrownBy(() -> new Orders(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining(ExceptionMessage.TOTAL_ORDER_COUNT_OVERFLOW_ERROR.getMessage());
+    }
+
+    static Stream<Arguments> TotalOrderCountOverflowMenuProvider() {
+        return Stream.of(
+                arguments(List.of("티본스테이크-10", "제로콜라-21")),
+                arguments(List.of("아이스크림-17", "샴페인-2", "레드와인-2"))
+        );
+    }
+
 }
